@@ -1,6 +1,6 @@
 # REACT
 
-## FUNDAMENTALS
+## [] FUNDAMENTALS
 
 ### 1. JSX
 ### 2. COMPONENTS
