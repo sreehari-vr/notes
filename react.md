@@ -581,24 +581,30 @@ With a `microservices architecture`, an application is built as independent comp
 ![Monolith and Microservice](../Coding/Images/monolith-microservices.png)
 
 ## Q46: Why do we need a `useEffect Hook`?
-A: `useEffect Hook` is javascript function provided by `react`. The useEffect Hook allows you to  `eliminate side effects` in your components. Some examples of side effects are: `fetching API data`, `directly updating the DOM`, and `setting up subscriptions or timers`, etc can be lead to unwarranted side-effects.
-useEffect accepts `two arguments`, a `callback function` and a `dependency array`. The second argument is optional.
+A: The `useEffect Hook` is a function provided by React that allows you to perform side effects in your functional components. Common side effects include:
 
-```
-useEffect(() => {}, [])
-```
-The `() => {}` is callback function and `[]` is called a empty dependency array. 
-If anything that we pass (suppose currentState) inside the `[]` it trigger the callback function and changes the state of the application.
-```
-useEffect(() => {
-    setCurrentState("true");
-}, [currentState])
-```
-If we do not pass empty dependency array then the useEffect runs everytime when the UI is rendered.
+`Fetching data from an API`
 
-```
-useEffect(() => {})
-```
+`Directly updating the DOM`
+
+`Setting up subscriptions or timers`
+
+The useEffect Hook takes `two arguments`:
+
+A callback function that contains the code for the side effect
+
+An optional dependency array that determines when the effect should run
+
+If the dependency array is:
+
+Empty ([]): The effect runs only once after the initial render (similar to componentDidMount).
+
+Not provided: The effect runs after every render.
+
+Includes specific values: The effect runs only when any of those values change.
+
+Using useEffect helps manage side effects properly and ensures they are cleaned up when necessary (like clearing a timer or unsubscribing).
+
 
 
 ## Q47: What is `Optional Chaining`?
