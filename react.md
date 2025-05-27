@@ -581,30 +581,54 @@ With a `microservices architecture`, an application is built as independent comp
 ![Monolith and Microservice](../Coding/Images/monolith-microservices.png)
 
 ## Q46: Why do we need a `useEffect Hook`?
-A: The `useEffect Hook` is a function provided by React that allows you to perform side effects in your functional components. Common side effects include:
+A:
 
-`Fetching data from an API`
+The `useEffect` Hook is a function provided by React that allows you to perform side effects in functional components.
 
-`Directly updating the DOM`
+### Common Side Effects
+- Fetching data from an API
+- Directly updating the DOM
+- Setting up subscriptions or timers
 
-`Setting up subscriptions or timers`
+### Arguments
+The `useEffect` Hook takes two arguments:
+1. **Callback Function**: Contains the code for the side effect. This function can return a cleanup function to handle unmounting or cleanup tasks.
+2. **Dependency Array** (optional): Determines when the effect should run.
 
-The useEffect Hook takes `two arguments`:
+### Dependency Array Behavior
+- **Empty (`[]`)**: The effect runs only once after the initial render (similar to `componentDidMount`). The cleanup function runs on unmount (similar to `componentWillUnmount`).
+- **Not Provided**: The effect runs after every render, and the cleanup function runs before each new effect or on unmount.
+- **Includes Specific Values**: The effect runs only when any of those values change, and the cleanup function runs before the effect re-runs or on unmount.
 
-A callback function that contains the code for the side effect
+### Purpose
+Using `useEffect` helps manage side effects properly and ensures they are cleaned up when necessary (e.g., clearing a timer or unsubscribing).
 
-An optional dependency array that determines when the effect should run
+### Example with Cleanup
+Below is a simple example demonstrating `useEffect` with a cleanup function to clear a timer when the component unmounts:
 
-If the dependency array is:
+```jsx
+import React, { useEffect, useState } from 'react';
 
-Empty ([]): The effect runs only once after the initial render (similar to componentDidMount).
+function TimerComponent() {
+  const [count, setCount] = useState(0);
 
-Not provided: The effect runs after every render.
+  useEffect(() => {
+    // Side effect: Set up a timer
+    const timer = setInterval(() => {
+      setCount(prevCount => prevCount + 1);
+    }, 1000);
 
-Includes specific values: The effect runs only when any of those values change.
+    // Cleanup function: Runs on unmount or before the effect re-runs
+    return () => {
+      clearInterval(timer);
+      console.log('Timer cleared');
+    };
+  }, []); // Empty dependency array: Effect runs once on mount
 
-Using useEffect helps manage side effects properly and ensures they are cleaned up when necessary (like clearing a timer or unsubscribing).
+  return <div>Count: {count}</div>;
+}
 
+export default TimerComponent;
 
 
 ## Q47: What is `Optional Chaining`?
